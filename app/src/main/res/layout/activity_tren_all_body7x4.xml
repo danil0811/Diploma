@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Tren_all_body_7x4"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/plechi"
+            android:scaleType="fitXY"
+            android:alpha="0.8">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="330dp"
+            android:text="Все тело"
+            android:textColor="@color/black"
+            android:textStyle="bold">
+        </TextView>
+
+    </RelativeLayout>
+
+    <!-- Добавляем ListView для отображения списка упражнений -->
+    <ListView
+        android:id="@+id/exerciseListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+    </ListView>
+
+</LinearLayout>

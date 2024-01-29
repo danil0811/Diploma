@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.KursovayaEnd">
+        <activity
+            android:name=".Tren_all_body_7x4"
+            android:exported="false" />
+        <activity
+            android:name=".All_body_activity"
+            android:exported="false" />
+        <activity
+            android:name=".HeightAndWeight"
+            android:exported="false" />
+        <activity
+            android:name=".HandKachat"
+            android:exported="false" />
+        <activity
+            android:name=".ChestKachat"
+            android:exported="false" />
+        <activity
+            android:name=".PressKachat"
+            android:exported="false" />
+        <activity
+            android:name=".Activity_lower_part_of_body"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.KursovayaEnd" />
+        <activity
+            android:name=".Activity_All_Body7x4"
+            android:exported="false" />
+        <activity
+            android:name=".ViborTrenirovki"
+            android:exported="false" />
+        <activity
+            android:name=".vibor_trenirovki"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

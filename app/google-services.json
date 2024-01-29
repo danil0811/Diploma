@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "578871652941",
+    "project_id": "kursovaya-b04b6",
+    "storage_bucket": "kursovaya-b04b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578871652941:android:68544649dc1aadf1bba204",
+        "android_client_info": {
+          "package_name": "com.example.kursovayaend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578871652941-gt8g3vs7mrb50thdes55517snps51he0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kursovayaend",
+            "certificate_hash": "4160e362d0162d6fb7f4e81c419b49506718a593"
+          }
+        },
+        {
+          "client_id": "578871652941-r9bbfp38pge1qv1pd4jit6p3mafa1393.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNtUN3-uvoKYkK-qwhlriSaXnGiiwGDuU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578871652941-r9bbfp38pge1qv1pd4jit6p3mafa1393.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
