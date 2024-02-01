@@ -11,6 +11,9 @@ import android.util.Log;
 
 import static com.example.kursovayaend.Model.DBHelper.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DataManager {
 
@@ -108,7 +111,7 @@ public class DataManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_WORKOUT_ID_FK_WE, workoutID);
+        values.put(COLUMN_WORKOUT_ID_FK_WE, 1); //
         values.put(COLUMN_DAY_ID_FK_WE, dayID);
         values.put(COLUMN_EXERCISE_ID_FK_WE, exerciseID);
 
@@ -329,6 +332,7 @@ public class DataManager {
 
 
 
+
     public void insertInitialUserData(double weight, double height, String gender) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -358,28 +362,38 @@ public class DataManager {
         editor.apply();
     }
 
-    public Cursor getExercisesForWorkout(long workoutID) {
+    public List<Exercise> getExercisesForWorkout(long workoutID) {
+        List<Exercise> exercises = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {
-                COLUMN_EXERCISE_NAME,
-                COLUMN_EXERCISE_DESCRIPTION
-        };
 
-        String tables = TABLE_WORKOUT_EXERCISES + " JOIN " + TABLE_EXERCISES +
-                " ON " + TABLE_WORKOUT_EXERCISES + "." + COLUMN_EXERCISE_ID_FK_WE +
-                " = " + TABLE_EXERCISES + "." + COLUMN_EXERCISE_ID;
+        String query = "SELECT " +
+                DBHelper.TABLE_EXERCISES + "." + DBHelper.COLUMN_EXERCISE_NAME + ", " +
+                DBHelper.TABLE_EXERCISES + "." + DBHelper.COLUMN_EXERCISE_DESCRIPTION +
+                " FROM " + DBHelper.TABLE_EXERCISES +
+                " INNER JOIN " + DBHelper.TABLE_WORKOUT_EXERCISES +
+                " ON " + DBHelper.TABLE_EXERCISES + "." + DBHelper.COLUMN_EXERCISE_ID +
+                " = " + DBHelper.TABLE_WORKOUT_EXERCISES + "." + DBHelper.COLUMN_EXERCISE_ID_FK_WE +
+                " WHERE " + DBHelper.TABLE_WORKOUT_EXERCISES + "." + DBHelper.COLUMN_WORKOUT_ID_FK_WE + " = ?";
 
-        String selection = COLUMN_WORKOUT_ID_FK_WE + " = ?";
-        String[] selectionArgs = {String.valueOf(workoutID)};
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(workoutID)});
 
-        return db.query(
-                tables,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    String exerciseName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_EXERCISE_NAME));
+                    String exerciseDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_EXERCISE_DESCRIPTION));
+                    exercises.add(new Exercise(exerciseName, exerciseDescription));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e("DataManager", "Error retrieving exercises for workout", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return exercises;
     }
 }

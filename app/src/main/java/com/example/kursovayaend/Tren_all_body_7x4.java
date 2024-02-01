@@ -1,21 +1,16 @@
 package com.example.kursovayaend;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.example.kursovayaend.Model.DBHelper;
 import com.example.kursovayaend.Model.DataManager;
 import com.example.kursovayaend.Model.Exercise;
 import com.example.kursovayaend.ui.theme.ExerciseAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-// Ваша активность
 public class Tren_all_body_7x4 extends AppCompatActivity {
 
     @Override
@@ -36,12 +31,11 @@ public class Tren_all_body_7x4 extends AppCompatActivity {
         long selectedWorkoutID = 1; // Замените на реальный ID
 
         // Получаем упражнения для выбранной тренировки
-        Cursor exercisesCursor = dataManager.getExercisesForWorkout(selectedWorkoutID);
+        List<Exercise> exercises = dataManager.getExercisesForWorkout(selectedWorkoutID);
 
         // Проверяем, есть ли данные
-        if (exercisesCursor != null && exercisesCursor.getCount() > 0) {
-            // Преобразуем Cursor в список упражнений
-            List<Exercise> exercises = convertCursorToExerciseList(exercisesCursor);
+        if (exercises != null && !exercises.isEmpty()) {
+            Log.d("Tren_all_body_7x4", "Number of exercises: " + exercises.size());
 
             // Создаем адаптер
             ExerciseAdapter adapter = new ExerciseAdapter(this, exercises);
@@ -51,21 +45,5 @@ public class Tren_all_body_7x4 extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Нет данных об упражнениях для выбранной тренировки", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    // Метод для преобразования Cursor в список упражнений
-    private List<Exercise> convertCursorToExerciseList(Cursor cursor) {
-        List<Exercise> exercises = new ArrayList<>();
-
-        while (cursor.moveToNext()) {
-            String exerciseName = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_EXERCISE_NAME));
-            String exerciseDescription = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_EXERCISE_DESCRIPTION));
-
-            exercises.add(new Exercise(exerciseName, exerciseDescription));
-        }
-
-        cursor.close();
-
-        return exercises;
     }
 }
